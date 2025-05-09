@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="login_title">Đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+
+    <link rel="stylesheet" href="../css/dangnhap.css">
+</head>
+<body>
+    <!-- Header giống sanpham.html -->
+    <header class="text-white py-4 mb-4 shadow d-flex justify-content-between align-items-center px-4 slide-in-left position-relative"
+        style="background-image: url('../img/2.jpg'); background-size: cover; background-position: center;">
+        <div class="d-flex align-items-center gap-3">
+            <img src="../img/1.png" alt="Logo" style="height: 40px;" class="logo-animated">
+       
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <select id="languageSelect" class="form-select form-select-sm">
+                <option value="vi">VI</option>
+                <option value="en">EN</option>
+            </select>
+            <button id="toggleDarkMode" class="btn btn-outline-light">
+                ☀️ <span class="d-none"></span>
+            </button>
+        </div>
+    </header>
+        <!-- Đoạn mã Lottie Animation -->
+<div id="animation-container" class="mb-4">
+    <script>
+        var animation = lottie.loadAnimation({
+            container: document.getElementById('animation-container'), // Chỗ hiển thị animation
+            path: '../animations/dev.json', // Đường dẫn tới file JSON
+            renderer: 'svg',
+            loop: true,
+            autoplay: true, // Bật tự động phát
+        });
+    </script>
+</div>
+    <!-- Nội dung đăng nhập -->
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4" data-i18n="login">Đăng nhập</h2>
+
+                        <div id="alert-box" class="mb-3"></div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label" data-i18n="email">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label" data-i18n="password">Mật khẩu</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" data-i18n="login_btn">Đăng nhập</button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <p data-i18n="no_account">Chưa có tài khoản? 
+                                <a href="dangky.html" class="btn btn-outline-secondary btn-sm" data-i18n="register">Đăng ký</a>
+                            </p>
+                            <!-- Thêm nút bấm chuyển hướng đến trang đăng ký -->
+                            <button onclick="window.location.href='dangky.html'" class="btn btn-outline-primary btn-sm" data-i18n="go_to_register">Đến trang đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer giống sanpham.html -->
+    <footer class="bg-white text-center text-muted py-3 border-top footer-slide-in">
+        <span data-i18n="footer">&copy; 2025 Phát triển bởi Radiant Trio</span>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        
+        const body = document.body;
+
+        // i18n
+        const translations = {
+            vi: {
+                site_name: "Radiant Trio Store",
+                login_title: "Đăng nhập",
+                login: "Đăng nhập",
+                email: "Email",
+                password: "Mật khẩu",
+                login_btn: "Đăng nhập",
+                no_account: "Chưa có tài khoản?",
+                register: "Đăng ký",
+                footer: "© 2025 Phát triển bởi Radiant Trio",
+                dark_mode: "Chế độ tối",
+                light_mode: "Chế độ sáng",
+                go_to_register: "Đến trang đăng ký"
+            },
+            en: {
+                site_name: "Radiant Trio Store",
+                login_title: "Login",
+                login: "Login",
+                email: "Email",
+                password: "Password",
+                login_btn: "Login",
+                no_account: "Don't have an account?",
+                register: "Register",
+                footer: "© 2025 Developed by Radiant Trio",
+                dark_mode: "Dark Mode",
+                light_mode: "Light Mode",
+                go_to_register: "Go to Register page"
+            }
+        };
+
+        let currentLang = localStorage.getItem("lang") || "vi";
+        document.getElementById("languageSelect").value = currentLang;
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem("lang", lang);
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+        }
+
+        const toggleBtn = document.getElementById("toggleDarkMode");
+                if (localStorage.getItem("darkMode") === "true") {
+            body.classList.add("dark-mode");
+            toggleBtn.querySelector("span").textContent = translations[currentLang]["light_mode"];
+            }
+
+            toggleBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            localStorage.setItem("darkMode", isDark);
+            toggleBtn.innerHTML = isDark
+                ? '🌙 <span class="d-none">Chế độ tối</span>'
+                : '☀️ <span class="d-none">Chế độ sáng</span>';
+            });
+
+        document.getElementById("languageSelect").addEventListener("change", (e) => {
+            updateLanguage(e.target.value);
+            toggleBtn.querySelector("span").textContent = body.classList.contains("dark-mode")
+                ? translations[currentLang]["light_mode"]
+                : translations[currentLang]["dark_mode"];
+        });
+
+        updateLanguage(currentLang);
+    </script>
+
+    <!-- Script xử lý đăng nhập riêng -->
+    <script src="../js/dangnhap.js"></script>
+</body>
+</html>

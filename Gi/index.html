@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="title">Radiant Trio Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="text-white py-4 mb-4 shadow d-flex justify-content-between align-items-center px-4 slide-in-left position-relative"
+        style="background-image: url('../img/2.jpg'); background-size: cover; background-position: center;">
+        <div class="d-flex align-items-center gap-3">
+            <img src="../img/1.png" alt="Logo" style="height: 40px;" class="logo-animated">
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <select id="languageSelect" class="form-select form-select-sm">
+                <option value="vi">VI</option>
+                <option value="en">EN</option>
+            </select>
+            <button id="toggleDarkMode" class="btn btn-outline-light">
+                ☀️ <span class="d-none"></span>
+            </button>
+            <button id="logoutBtn" class="btn btn-danger">Đăng nhập</button>
+            <button id="logoutBtn2" class="btn btn-danger">Đăng ký</button>
+        </div>
+    </header>
+    <section style="padding: 40px; max-width: 900px; margin: auto; line-height: 1.8;">
+        <div class="khung">
+            <h2>Giới thiệu về chúng tôi</h2>
+            <p>Cửa hàng ABC tự hào là địa chỉ uy tín chuyên cung cấp các sản phẩm chất lượng cao với giá cả hợp lý...</p>
+          
+            <h3>Sản phẩm nổi bật</h3>
+            <ul>
+              <li>📚 Thời trang nam nữ cao cấp</li>
+              <li>🍱 Thực phẩm sạch, an toàn</li>
+              <li>📟 Đồ điện tử chính hãng</li>
+            </ul>
+          
+            <h3>Tại sao chọn chúng tôi?</h3>
+            <ul>
+              <li>✅ Đội ngũ nhân viên thân thiện, chuyên nghiệp</li>
+              <li>✅ Cam kết hoàn tiền 100% nếu sản phẩm lỗi</li>
+              <li>✅ Giao hàng nhanh chóng trên toàn quốc</li>
+            </ul>
+          </div>
+      </section>
+    <!-- Footer -->
+    <footer class="bg-white text-center text-muted py-3 border-top footer-slide-in">
+        <span data-i18n="footer">&copy; 2025 Phát triển bởi Radiant Trio</span>
+    </footer>
+
+    
+
+    <!-- Scripts -->
+    <script src="../js/sanpham.js"></script>
+    <script>
+        const toggleBtn = document.getElementById("toggleDarkMode");
+        const body = document.body;
+
+        if (localStorage.getItem("darkMode") === "true") {
+        body.classList.add("dark-mode");
+        toggleBtn.querySelector("span").textContent = translations[currentLang]["light_mode"];
+        }
+
+        toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        const isDark = body.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark);
+        toggleBtn.innerHTML = isDark
+            ? '🌙 <span class="d-none">Chế độ tối</span>'
+            : '☀️ <span class="d-none">Chế độ sáng</span>';
+        });
+
+        const translations = {
+            vi: {
+                title: "Radiant Trio Store",
+                dark_mode: "Chế độ tối",
+                footer: "© 2025 Phát triển bởi Radiant Trio"
+            },
+            en: {
+                title: "Radiant Trio Store",
+                dark_mode: "Dark Mode",
+                footer: "© 2025 Developed by Radiant Trio"
+            }
+        };
+
+        let currentLang = localStorage.getItem("lang") || "vi";
+        document.getElementById("languageSelect").value = currentLang;
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem("lang", lang);
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+
+            document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+                const key = el.getAttribute("data-i18n-placeholder");
+                if (translations[lang][key]) el.placeholder = translations[lang][key];
+            });
+
+            toggleBtn.querySelector("span").textContent = body.classList.contains("dark-mode")
+                ? translations[lang]["light_mode"]
+                : translations[lang]["dark_mode"];
+        }
+
+        document.getElementById("languageSelect").addEventListener("change", (e) => {
+            updateLanguage(e.target.value);
+        });
+
+        updateLanguage(currentLang);
+
+        // Xử lý nút đăng nhập
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("user"); // hoặc token, v.v...
+            window.location.href = "page/dangnhap.html";
+        });
+        document.getElementById("logoutBtn2").addEventListener("click", () => {
+            localStorage.removeItem("user"); // hoặc token, v.v...
+            window.location.href = "page/dangky.html";
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

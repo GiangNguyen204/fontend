@@ -1,0 +1,121 @@
+/* 1. Giao diện tối */
+body.dark-mode {
+  background-color: #1e1e1e; /* Nền tối cho toàn bộ trang */
+  color: #e0e0e0; /* Màu chữ sáng mờ */
+}
+
+/* 2. Định dạng cho card trong chế độ tối */
+body.dark-mode .card {
+  background-color: #2c2c2c; /* Nền tối cho các card */
+  border-color: #444; /* Viền tối cho card */
+}
+
+/* 3. Định dạng cho các ô input trong chế độ tối */
+body.dark-mode .form-control {
+  background-color: #3a3a3a; /* Nền tối cho các ô input */
+  color: #fff; /* Màu chữ sáng cho các ô input */
+  border-color: #666; /* Viền tối cho các ô input */
+}
+
+body.dark-mode .form-control::placeholder {
+  color: #ccc; /* Màu chữ placeholder sáng mờ */
+}
+
+/* 4. Định dạng cho nút primary trong chế độ tối */
+body.dark-mode .btn-primary {
+  background-color: #4a90e2; /* Màu nền sáng cho nút primary */
+  border-color: #357ABD; /* Viền sáng cho nút primary */
+}
+
+/* 5. Định dạng cho nút có viền secondary trong chế độ tối */
+body.dark-mode .btn-outline-secondary {
+  color: #fff; /* Màu chữ trắng cho nút */
+  border-color: #aaa; /* Viền sáng mờ cho nút */
+}
+
+/* 6. Định dạng cho các phần tử có lớp bg-white trong chế độ tối */
+body.dark-mode .bg-white {
+  background-color: #2c2c2c !important; /* Nền tối cho các phần tử có class bg-white */
+}
+
+/* 7. Định dạng cho nút vuông dùng để chuyển chế độ sáng/tối */
+.square-button {
+  width: 42px; /* Chiều rộng của nút vuông */
+  height: 42px; /* Chiều cao của nút vuông */
+  padding: 0; /* Loại bỏ padding mặc định */
+  display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+  justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  font-size: 1.2rem; /* Cỡ chữ cho nút */
+  border-radius: 0.4rem; /* Bo tròn góc của nút */
+}
+
+.square-button span {
+  display: none; /* Ẩn span bên trong nút */
+}
+
+.square-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Tạo hiệu ứng hover cho nút */
+}
+
+/* 8. Định dạng cho giao diện tối chung */
+body.dark-mode {
+  background-color: #121212; /* Nền tối */
+  color: #f5f5f5; /* Màu chữ sáng */
+}
+
+body.dark-mode .form-control,
+body.dark-mode .btn,
+body.dark-mode .form-select {
+  background-color: #333; /* Nền tối cho các ô input và nút */
+  color: #f5f5f5; /* Màu chữ sáng */
+  border: 1px solid #555; /* Viền tối cho các ô input */
+}
+
+body.dark-mode .card,
+body.dark-mode .footer-slide-in {
+  background-color: #222; /* Nền tối cho các card và footer */
+  color: #f5f5f5; /* Màu chữ sáng */
+}
+
+body.dark-mode a {
+  color: #99ccff; /* Màu chữ của liên kết trong chế độ tối */
+}
+
+body.dark-mode a:hover {
+  color: #ffffff; /* Màu chữ khi hover trên liên kết */
+}
+
+/* 9. Đảm bảo trang chiếm toàn bộ chiều cao */
+body {
+  display: flex; /* Sử dụng flexbox cho toàn bộ trang */
+  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu là 100% chiều cao viewport */
+  margin: 0; /* Loại bỏ margin mặc định */
+}
+
+/* 10. Đẩy phần nội dung chính lên để footer luôn nằm dưới */
+.container {
+  flex: 1; /* Cho phép container chiếm không gian còn lại */
+}
+
+/* 11. Hiệu ứng xoay và phóng to cho logo */
+@keyframes rotate-scale {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.logo-animated {
+  animation: rotate-scale 1.5s ease-in-out infinite; /* Áp dụng hiệu ứng xoay và phóng to cho logo */
+}
+
+/* 12. Định dạng cho container chứa animation */
+#animation-container {
+  width: 100%;  /* Điều chỉnh kích thước phù hợp với không gian của form */
+  max-width: 350px;  /* Đặt chiều rộng tối đa */
+  height: auto;  /* Tự động điều chỉnh chiều cao để giữ tỷ lệ */
+  margin: 0 auto;  /* Căn giữa animation trong container */
+  transform: scale(0.5);  /* Thu nhỏ animation xuống 50% */
+  transform-origin: center;  /* Đặt gốc của transform ở giữa */
+}

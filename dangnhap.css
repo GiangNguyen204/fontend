@@ -1,0 +1,125 @@
+/* 1. Giao diện tối */
+body.dark-mode {
+    background-color: #121212; /* Nền tối cho toàn bộ trang */
+    color: #f0f0f0; /* Màu chữ sáng */
+}
+
+/* 2. Định dạng cho card trong chế độ tối */
+body.dark-mode .card {
+    background-color: #1e1e1e; /* Nền tối cho các card */
+    border-color: #333; /* Viền tối cho card */
+}
+
+/* 3. Định dạng cho các ô input trong chế độ tối */
+body.dark-mode .form-control {
+    background-color: #2c2c2c; /* Nền tối cho các ô input */
+    color: #f0f0f0; /* Màu chữ sáng cho các ô input */
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #bbb; /* Màu chữ placeholder sáng mờ */
+}
+
+/* 4. Định dạng cho nút có viền trong chế độ tối */
+body.dark-mode .btn-outline-secondary {
+    border-color: #ccc; /* Viền sáng cho các nút có viền */
+    color: #ccc; /* Màu chữ sáng cho nút */
+}
+
+/* 5. Định dạng footer trong chế độ tối */
+body.dark-mode footer {
+    background-color: #1a1a1a; /* Nền tối cho footer */
+    color: #999; /* Màu chữ sáng mờ cho footer */
+}
+
+/* 6. Định dạng cho nút vuông dùng để chuyển chế độ sáng/tối */
+.square-button {
+    width: 38px; /* Chiều rộng của nút vuông */
+    height: 38px; /* Chiều cao của nút vuông */
+    padding: 0; /* Loại bỏ padding mặc định */
+    display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    font-size: 18px; /* Cỡ chữ cho nút */
+    border-radius: 0.25rem; /* Bo tròn góc của nút */
+}
+
+/* 7. Căn chỉnh header */
+header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ nhẹ cho header */
+}
+
+/* 8. Định dạng footer chung */
+footer {
+    font-size: 0.9rem; /* Cỡ chữ nhỏ cho footer */
+    background-color: #343a40; /* Nền tối cho footer */
+    color: white; /* Màu chữ trắng cho footer */
+}
+
+/* 9. Định dạng card và nội dung */
+.card {
+    border-radius: 0.75rem; /* Bo tròn góc cho các card */
+}
+
+.card-body {
+    padding: 2rem; /* Khoảng cách bên trong card */
+}
+
+/* 10. Đảm bảo giao diện tối cho các phần tử */
+body.dark-mode .form-control,
+body.dark-mode .btn,
+body.dark-mode .form-select {
+    background-color: #333; /* Nền tối cho các ô input và nút */
+    color: #f5f5f5; /* Màu chữ sáng */
+    border: 1px solid #555; /* Viền tối cho các ô input và nút */
+}
+
+/* 11. Định dạng cho card và footer trong chế độ tối */
+body.dark-mode .card,
+body.dark-mode .footer-slide-in {
+    background-color: #222; /* Nền tối cho các card và footer */
+    color: #f5f5f5; /* Màu chữ sáng */
+}
+
+/* 12. Định dạng cho liên kết trong chế độ tối */
+body.dark-mode a {
+    color: #99ccff; /* Màu chữ của liên kết trong chế độ tối */
+}
+
+body.dark-mode a:hover {
+    color: #ffffff; /* Màu chữ khi hover trên liên kết */
+}
+
+/* 13. Đảm bảo trang chiếm toàn bộ chiều cao */
+body {
+    display: flex; /* Sử dụng flexbox cho toàn bộ trang */
+    flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+    min-height: 100vh; /* Đảm bảo chiều cao tối thiểu là 100% chiều cao viewport */
+    margin: 0; /* Loại bỏ margin mặc định */
+}
+
+/* 14. Đẩy phần nội dung chính lên để footer luôn nằm dưới */
+.container {
+    flex: 1; /* Cho phép container chiếm không gian còn lại */
+}
+
+/* 15. Hiệu ứng xoay và phóng to cho logo */
+@keyframes rotate-scale {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.logo-animated {
+    animation: rotate-scale 1.5s ease-in-out infinite; /* Áp dụng hiệu ứng xoay và phóng to cho logo */
+}
+
+/* 16. Định dạng cho container chứa animation */
+#animation-container {
+    width: 100%;  /* Điều chỉnh kích thước phù hợp với không gian của form */
+    max-width: 350px;  /* Đặt chiều rộng tối đa */
+    height: auto;  /* Tự động điều chỉnh chiều cao để giữ tỷ lệ */
+    margin: 0 auto;  /* Căn giữa animation trong container */
+    transform: scale(0.5);  /* Thu nhỏ animation xuống 50% */
+    transform-origin: center;  /* Đặt gốc của transform ở giữa */
+}

@@ -1,0 +1,189 @@
+/* 1. Định dạng giỏ hàng */
+#cartList {
+    display: flex; /* Sử dụng flexbox để sắp xếp các item trong giỏ hàng */
+    flex-direction: column; /* Sắp xếp các item theo cột */
+    gap: 1rem; /* Khoảng cách giữa các item */
+    margin-top: 20px; /* Khoảng cách phía trên giỏ hàng */
+}
+
+/* 2. Định dạng cho mỗi phần tử trong giỏ hàng */
+.cart-item {
+    display: flex; /* Sử dụng flexbox để sắp xếp các phần tử bên trong item */
+    border: 1px solid #ddd; /* Viền mờ cho mỗi item */
+    padding: 10px; /* Khoảng cách giữa các phần tử và viền */
+    border-radius: 8px; /* Bo tròn góc của item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ nhẹ cho mỗi item */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    background-color: #fff; /* Nền trắng cho mỗi item */
+}
+
+/* 3. Định dạng hình ảnh trong mỗi item */
+.cart-item img {
+    width: 80px; /* Chiều rộng của hình ảnh */
+    height: 80px; /* Chiều cao của hình ảnh */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+    margin-right: 15px; /* Khoảng cách giữa hình ảnh và thông tin sản phẩm */
+    border-radius: 5px; /* Bo tròn hình ảnh */
+}
+
+/* 4. Định dạng cho phần thông tin sản phẩm trong mỗi item */
+.cart-item-info {
+    flex-grow: 1; /* Cho phép phần thông tin sản phẩm chiếm không gian còn lại */
+}
+
+.cart-item-info h5 {
+    margin: 0; /* Xóa margin mặc định */
+    font-size: 1.2rem; /* Cỡ chữ tiêu đề của sản phẩm */
+    font-weight: bold; /* Chữ đậm cho tiêu đề */
+}
+
+.cart-item-info p {
+    margin: 5px 0; /* Khoảng cách giữa các đoạn mô tả */
+    font-size: 0.9rem; /* Cỡ chữ mô tả sản phẩm */
+}
+
+/* 5. Định dạng cho các nút sửa số lượng và xóa sản phẩm */
+.cart-item-info button {
+    margin-top: 5px; /* Khoảng cách phía trên nút */
+    font-size: 0.8rem; /* Cỡ chữ nhỏ cho các nút */
+}
+
+.cart-item-info button.btn-warning {
+    background-color: #f0ad4e; /* Màu nền của nút sửa số lượng */
+    color: white; /* Màu chữ trắng */
+}
+
+.cart-item-info button.btn-danger {
+    background-color: #d9534f; /* Màu nền của nút xóa sản phẩm */
+    color: white; /* Màu chữ trắng */
+}
+
+/* 6. Định dạng cho tổng giá trị giỏ hàng */
+#cartTotal {
+    font-size: 1.2rem; /* Cỡ chữ cho tổng giá trị */
+    font-weight: bold; /* Chữ đậm cho tổng giá trị */
+    margin-top: 20px; /* Khoảng cách phía trên */
+    color: #333; /* Màu chữ */
+}
+
+/* 7. Định dạng modal số lượng sản phẩm */
+.modal-body input {
+    width: 100%; /* Chiều rộng của ô input trong modal */
+    padding: 10px; /* Khoảng cách trong ô input */
+    margin: 5px 0; /* Khoảng cách giữa các input */
+    border-radius: 5px; /* Bo tròn góc của ô input */
+    border: 1px solid #ddd; /* Viền mờ cho ô input */
+}
+
+.modal-footer .btn {
+    font-size: 0.9rem; /* Cỡ chữ cho nút trong footer của modal */
+}
+
+/* 8. Định dạng chế độ tối */
+body.dark-mode {
+    background-color: #121212; /* Nền tối */
+    color: #f5f5f5; /* Màu chữ sáng */
+}
+
+/* 9. Định dạng các input và nút trong chế độ tối */
+body.dark-mode .form-control,
+body.dark-mode .btn,
+body.dark-mode .form-select {
+    background-color: #333; /* Nền tối cho các input và nút */
+    color: #f5f5f5; /* Màu chữ sáng */
+    border: 1px solid #555; /* Viền tối cho các ô input */
+}
+
+/* 10. Định dạng card và giỏ hàng trong chế độ tối */
+body.dark-mode .card,
+body.dark-mode #cartSummary {
+    background-color: #222; /* Nền tối cho card và giỏ hàng */
+    color: #f5f5f5; /* Màu chữ sáng */
+}
+
+/* 11. Định dạng liên kết trong chế độ tối */
+body.dark-mode a {
+    color: #99ccff; /* Màu chữ cho liên kết */
+}
+
+body.dark-mode a:hover {
+    color: #ffffff; /* Màu chữ khi hover trên liên kết */
+}
+
+/* 12. Đảm bảo chiều cao tối thiểu cho trang */
+body {
+    display: flex; /* Sử dụng flexbox */
+    flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+    min-height: 100vh; /* Chiều cao tối thiểu là 100% chiều cao của viewport */
+    margin: 0; /* Xóa margin mặc định */
+    padding-bottom: 120px; /* Khoảng cách dưới cùng để tránh che nội dung */
+}
+
+/* 13. Đảm bảo container chiếm toàn bộ không gian còn lại */
+.container {
+    flex: 1; /* Cho phép container chiếm không gian còn lại */
+}
+
+/* 14. Hiệu ứng xoay cho logo */
+@keyframes rotate-scale {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.logo-animated {
+    animation: rotate-scale 1.5s ease-in-out infinite; /* Hiệu ứng xoay và phóng to cho logo */
+}
+
+/* 15. Đảm bảo footer luôn cố định phía dưới trang */
+.fixed-bottom {
+    z-index: 1030; /* Đảm bảo footer nằm trên modal hoặc phần tử khác */
+}
+
+/* 16. Định dạng cho phần tóm tắt giỏ hàng */
+#cartSummary {
+    background-color: #fff; /* Nền sáng cho tóm tắt giỏ hàng */
+    width: 100%; /* Chiều rộng đầy đủ */
+    border-top: 1px solid #ddd; /* Viền trên */
+    padding: 1rem; /* Khoảng cách cho phần tóm tắt */
+}
+
+/* 17. Đảm bảo giỏ hàng không bị kéo lên quá gần footer khi rỗng */
+#cartItems {
+    min-height: 200px; /* Đảm bảo giỏ hàng có chiều cao tối thiểu khi rỗng */
+}
+
+/* 18. Đảm bảo footer luôn xuất hiện phía dưới trang, kể cả khi giỏ hàng trống */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between; /* Đảm bảo nội dung luôn chiếm không gian còn lại */
+}
+
+/* 19. Đảm bảo footer luôn ở dưới */
+footer {
+    margin-top: auto; /* Đảm bảo footer luôn nằm dưới cùng */
+}
+
+/* 20. Định dạng cho phần footer khi giỏ hàng trống */
+#cartSummary {
+    font-size: 1.1rem; /* Cỡ chữ cho tóm tắt giỏ hàng */
+    font-weight: bold; /* Chữ đậm */
+    padding: 10px;
+    background-color: #f8f9fa; /* Nền sáng cho footer */
+}
+
+/* 21. Định dạng các item giỏ hàng trong chế độ tối */
+body.dark-mode .cart-item {
+    background-color: #333; /* Nền tối cho các item trong giỏ hàng */
+    border-color: #444; /* Viền tối cho các item */
+}
+
+body.dark-mode .cart-item-info h5 {
+    color: #f5f5f5; /* Màu chữ sáng cho tiêu đề sản phẩm */
+}
+
+body.dark-mode .cart-item-info p {
+    color: #ccc; /* Màu chữ sáng cho mô tả sản phẩm */
+}

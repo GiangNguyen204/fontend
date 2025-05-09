@@ -1,0 +1,170 @@
+/* 1. Thiết lập cho hình ảnh trong card */
+.card-img-top {
+    height: 200px; /* Chiều cao cố định cho hình ảnh */
+    object-fit: cover; /* Đảm bảo ảnh luôn bao phủ toàn bộ không gian mà không bị méo */
+}
+
+/* 2. Thiết lập cho nền của body */
+body {
+    background-color: #a5b2fc; /* Màu nền sáng cho trang */
+}
+
+/* 3. Định dạng cho khung chứa nội dung */
+.khung {
+    background-color: #ffffff; /* Nền trắng cho khung */
+    padding: 30px; /* Khoảng cách giữa nội dung và viền */
+    margin: 40px auto; /* Căn giữa và tạo khoảng cách với các phần tử khác */
+    border-radius: 15px; /* Bo tròn góc */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Tạo bóng đổ cho khung */
+    max-width: 8000px; /* Đặt chiều rộng tối đa cho khung */
+    color: #333; /* Màu chữ mặc định */
+}
+
+/* 4. Hiệu ứng hover cho card */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng chuyển động và bóng đổ khi hover */
+}
+
+.card:hover {
+    transform: scale(1.02); /* Phóng to nhẹ khi hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Tăng bóng đổ khi hover */
+}
+
+/* 5. Hiệu ứng focus cho form-control */
+.form-control:focus {
+    border-color: #0d6efd; /* Màu viền khi ô input được focus */
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Màu viền sáng khi focus */
+}
+
+/* 6. Định dạng cho tiêu đề trong header */
+header h1 {
+    font-weight: bold; /* Đậm chữ tiêu đề */
+}
+
+/* 7. Định dạng cho nút danger */
+.btn-danger{
+    margin-right: 5px; /* Khoảng cách giữa các nút */
+    width: 250px; /* Chiều rộng của nút */
+}
+
+/* 8. Thiết lập chung cho giao diện */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Thêm hiệu ứng chuyển màu nền và chữ */
+}
+
+.card {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển màu nền và chữ trong card */
+}
+
+.form-control, .btn {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Hiệu ứng chuyển màu nền và viền cho form-control và button */
+}
+
+/* 9. Chế độ tối */
+.dark-mode {
+    background-color: #121212; /* Nền tối */
+    color: #e0e0e0; /* Màu chữ sáng */
+}
+
+/* 10. Định dạng card trong chế độ tối */
+.dark-mode .card {
+    background-color: #1e1e1e; /* Nền tối cho card */
+    border-color: #333; /* Viền tối */
+    color: #e0e0e0; /* Màu chữ sáng trong card */
+}
+
+/* 11. Định dạng form-control trong chế độ tối */
+.dark-mode .form-control {
+    background-color: #2c2c2c; /* Nền tối cho các ô input */
+    border-color: #555; /* Viền tối cho các ô input */
+    color: #fff; /* Màu chữ sáng trong các ô input */
+}
+
+/* 12. Định dạng placeholder trong chế độ tối */
+.dark-mode .form-control::placeholder {
+    color: #aaa; /* Màu chữ nhạt cho placeholder */
+}
+
+/* 13. Định dạng nút trong chế độ tối */
+.dark-mode .btn-outline-primary {
+    color: #ccc; /* Màu chữ sáng cho nút */
+    border-color: #888; /* Màu viền cho nút */
+}
+
+.dark-mode .btn-outline-primary:hover {
+    background-color: #333; /* Nền tối khi hover */
+    color: #fff; /* Màu chữ sáng khi hover */
+}
+
+/* 14. Định dạng header và footer trong chế độ tối */
+.dark-mode header,
+.dark-mode footer {
+    background-color: #1f1f1f !important; /* Nền tối cho header và footer */
+    color: #e0e0e0; /* Màu chữ sáng cho header và footer */
+}
+
+/* 15. Định dạng cho nút trong chế độ tối */
+.dark-mode .btn-outline-light {
+    border-color: #ccc; /* Viền sáng cho nút */
+    color: #fff; /* Màu chữ sáng cho nút */
+}
+
+/* 16. Đảm bảo chế độ tối cho toàn bộ trang */
+body.dark-mode {
+    background-color: #121212; /* Nền tối */
+    color: #f5f5f5; /* Màu chữ sáng */
+}
+
+/* 17. Định dạng cho các ô input và nút trong chế độ tối */
+body.dark-mode .form-control,
+body.dark-mode .btn,
+body.dark-mode .form-select {
+    background-color: #333; /* Nền tối cho các ô input và nút */
+    color: #f5f5f5; /* Màu chữ sáng */
+    border: 1px solid #555; /* Viền tối cho các ô input */
+}
+
+/* 18. Định dạng cho card và footer trong chế độ tối */
+body.dark-mode .card,
+body.dark-mode .footer-slide-in {
+    background-color: #222; /* Nền tối cho card và footer */
+    color: #f5f5f5; /* Màu chữ sáng */
+}
+
+/* 19. Định dạng cho liên kết trong chế độ tối */
+body.dark-mode a {
+    color: #99ccff; /* Màu chữ cho liên kết */
+}
+
+body.dark-mode a:hover {
+    color: #ffffff; /* Màu chữ khi hover */
+}
+
+/* 20. Đảm bảo trang chiếm toàn bộ chiều cao */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Chiều cao tối thiểu cho body */
+    margin: 0; /* Xóa khoảng cách mặc định */
+}
+
+/* 21. Đẩy phần nội dung chính lên để footer luôn nằm dưới */
+.container {
+    flex: 1; /* Đảm bảo phần nội dung chiếm hết không gian còn lại */
+}
+
+/* 22. Hiệu ứng xoay cho logo */
+@keyframes rotate-scale {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.logo-animated {
+    animation: rotate-scale 1.5s ease-in-out infinite; /* Hiệu ứng xoay liên tục cho logo */
+}
+
+/* 23. Đảm bảo icon sáng/tối được hiển thị chính xác */
+.sun-icon {
+    content: '🌞'; /* Biểu tượng mặt trời cho chế độ sáng */
+}

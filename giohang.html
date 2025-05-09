@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title data-i18n="title">Radiant Trio Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Thư viện Bootstrap hỗ trợ responsive layout -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Thư viện hiển thị animation JSON -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+  <!-- Thư viện icon FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Đảm bảo body và html cao 100% */
+    body, html { height: 100%; }
+    .main-content { display: flex; flex-direction: column; min-height: 100vh; flex-grow: 1; }
+    .main-body { flex: 1; }
+    #cartSummary { background-color: white; }
+    footer { margin-top: auto; }
+    .dark-mode { background-color: #121212; color: white; }
+  </style>
+</head>
+<body>
+  <!-- Header của trang: chứa logo, ngôn ngữ, dark mode, giỏ hàng và đăng xuất -->
+  <header class="text-white py-4 mb-4 shadow d-flex justify-content-between align-items-center px-4"
+          style="background-image: url('../img/2.jpg'); background-size: cover; background-position: center;">
+    <div class="d-flex align-items-center gap-3">
+      <!-- Logo -->
+      <img src="../img/1.png" alt="Logo" style="height: 40px;" class="logo-animated">
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <!-- Nút tới giỏ hàng -->
+      <a href="giohang.html" class="btn btn-outline-light">🛒</a>
+      <!-- Chọn ngôn ngữ -->
+      <select id="languageSelect" class="form-select form-select-sm">
+        <option value="vi">VI</option>
+        <option value="en">EN</option>
+      </select>
+      <!-- Nút chuyển đổi chế độ sáng/tối -->
+      <button id="toggleDarkMode" class="btn btn-outline-light">
+        🌙 <span class="d-none">Chế độ tối</span>
+      </button>
+      <!-- Nút đăng xuất -->
+      <button id="logoutBtn" class="btn btn-danger">Đăng xuất</button>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <!-- Nội dung chính của trang -->
+    <div class="container py-4 main-body">
+      <h2 class="mb-4" data-i18n="your_cart">🛒 Giỏ hàng của bạn</h2>
+      <!-- Danh sách sản phẩm trong giỏ -->
+      <div id="cartItems" class="row g-4"></div>
+    </div>
+
+    <!-- Tóm tắt giỏ hàng -->
+    <div id="cartSummary" class="container p-3 border-top shadow-sm d-flex flex-column align-items-start align-items-md-center gap-2">
+      <h5 id="totalPrice">Tổng tiền: 0₫</h5>
+      <div class="d-flex gap-2">
+        <!-- Quay lại trang sản phẩm -->
+        <a href="sanpham.html" class="btn btn-secondary" data-i18n="back">Quay lại trang sản phẩm</a>
+        <!-- Nút mua hàng mở modal -->
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentModal">Mua hàng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer cuối trang -->
+  <footer class="bg-white text-center text-muted py-3 border-top">
+    <span data-i18n="footer">&copy; 2025 Phát triển bởi Radiant Trio</span>
+  </footer>
+
+  <!-- Modal thanh toán (hiện khi bấm nút Mua hàng) -->
+  <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Thanh toán</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body text-center">
+          <!-- Tổng tiền trong modal -->
+          <p>Số tiền cần thanh toán: <strong id="modalTotal"></strong></p>
+          <!-- Mã QR để thanh toán -->
+          <img src="../img/4.png" alt="QR Code" style="height: 200px;" class="mx-auto d-block my-3">
+          <!-- Khung animation pháo hoa -->
+          <div id="fireworkAnimation" style="width: 300px; height: 300px; margin: 20px auto; display: none;"></div>
+        </div>        
+        <div class="modal-footer">
+          <button type="button" id="payBtn" class="btn btn-primary">Thanh toán</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script xử lý logic -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Lấy các phần tử HTML cần dùng
+    const cartItemsContainer = document.getElementById('cartItems');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+    const modalTotalDisplay = document.getElementById('modalTotal');
+    // Lấy giỏ hàng từ localStorage (nếu có)
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Cập nhật giao diện giỏ hàng
+    function updateCart() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<div class="col text-center"><p>🛒 Giỏ hàng của bạn đang trống.</p></div>`;
+      }
+
+      // Lặp qua từng sản phẩm để hiển thị
+      cart.forEach((item, index) => {
+        const quantity = Number(item.quantity) || 1;
+        const gia = Number(item.gia);
+        const thanhTien = gia * quantity;
+        total += thanhTien;
+
+        // Tạo thẻ card sản phẩm
+        const col = document.createElement('div');
+        col.className = 'col-md-4';
+
+        const card = document.createElement('div');
+        card.className = 'card h-100 shadow-sm';
+
+        card.innerHTML = `
+          <img src="${item.hinhanh || '#'}" class="card-img-top" alt="${item.ten}">
+          <div class="card-body">
+            <h5 class="card-title">${item.ten}</h5>
+            <p class="card-text">${item.mota}</p>
+            <p class="card-text"><strong>Giá:</strong> ${gia.toLocaleString()}₫</p>
+            <p class="card-text"><strong>Số lượng:</strong> ${quantity}</p>
+            <p class="card-text"><strong>Thành tiền:</strong> ${thanhTien.toLocaleString()}₫</p>
+            <button class="btn btn-danger" onclick="removeItem(${index})">Xóa</button>
+          </div>
+        `;
+
+        col.appendChild(card);
+        cartItemsContainer.appendChild(col);
+      });
+
+      // Cập nhật tổng tiền
+      totalPriceDisplay.textContent = `Tổng tiền: ${total.toLocaleString()}₫`;
+      modalTotalDisplay.textContent = `${total.toLocaleString()}₫`;
+    }
+
+    // Xóa sản phẩm khỏi giỏ
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
+    }
+
+    // Hiển thị giỏ hàng ban đầu
+    updateCart();
+
+    // Xử lý thanh toán
+    const payBtn = document.getElementById('payBtn');
+    payBtn.addEventListener('click', () => {
+      // Thay đổi nội dung modal thành cảm ơn và pháo hoa
+      const modalBody = document.querySelector('.modal-body');
+      modalBody.innerHTML = `
+        <h4 class="text-center">🎉 Cảm ơn quý khách!</h4>
+        <p class="text-center">Thanh toán thành công. Chúc bạn một ngày tốt lành!</p>
+        <div id="fireworkAnimation" style="width: 300px; height: 300px; margin: 20px auto;"></div>
+      `;
+
+      // Hiển thị animation pháo hoa
+      lottie.loadAnimation({
+        container: document.getElementById('fireworkAnimation'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        path: '../animations/phaohoa.json'
+      });
+
+      // Xóa giỏ hàng sau khi thanh toán
+      localStorage.removeItem('cart');
+      cart = [];
+      updateCart();
+
+      // Đóng modal sau 3 giây
+      setTimeout(() => {
+        const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+        paymentModal.hide();
+      }, 3000);
+    });
+
+    // Chuyển ngôn ngữ và dark mode
+    const toggleBtn = document.getElementById("toggleDarkMode");
+    const body = document.body;
+    const translations = {
+      vi: {
+        title: "Radiant Trio Store",
+        header: "Giỏ Hàng",
+        dark_mode: "Chế độ tối",
+        light_mode: "Chế độ sáng",
+        your_cart: "Giỏ hàng của bạn",
+        back: "Quay lại trang sản phẩm",
+        footer: "© 2025 Phát triển bởi Radiant Trio"
+      },
+      en: {
+        title: "Radiant Trio Store",
+        header: "Shopping Cart",
+        dark_mode: "Dark Mode",
+        light_mode: "Light Mode",
+        your_cart: "Your Cart",
+        back: "Back to Product Page",
+        footer: "© 2025 Developed by Radiant Trio"
+      }
+    };
+
+    let currentLang = localStorage.getItem("lang") || "vi";
+    document.getElementById("languageSelect").value = currentLang;
+
+    // Cập nhật nội dung theo ngôn ngữ
+    function updateLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("lang", lang);
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      toggleBtn.querySelector("span").textContent = body.classList.contains("dark-mode")
+        ? translations[lang]["light_mode"]
+        : translations[lang]["dark_mode"];
+    }
+
+    // Khởi động dark mode nếu đã lưu trước đó
+    if (localStorage.getItem("darkMode") === "true") {
+      body.classList.add("dark-mode");
+      toggleBtn.querySelector("span").textContent = translations[currentLang]["light_mode"];
+    }
+
+    // Sự kiện chuyển chế độ sáng/tối
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      const isDark = body.classList.contains("dark-mode");
+      localStorage.setItem("darkMode", isDark);
+      toggleBtn.innerHTML = isDark
+        ? '🌙 <span class="d-none">Chế độ tối</span>'
+        : '🌞 <span class="d-none">Chế độ sáng</span>';
+    });
+
+    // Sự kiện chuyển ngôn ngữ
+    document.getElementById("languageSelect").addEventListener("change", (e) => {
+      updateLanguage(e.target.value);
+    });
+
+    updateLanguage(currentLang);
+
+    // Nút đăng xuất: xóa thông tin người dùng và quay về trang đăng nhập
+    const logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("cart");
+      window.location.href = "dangnhap.html";
+    });
+  </script>
+</body>
+</html>
